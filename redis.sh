@@ -70,7 +70,7 @@ Description=Redis persistent key-value database
 After=network.target
 [Service]
 ExecStart=${INSTALL_DIR}/bin/redis-server ${INSTALL_DIR}/etc/redis.conf --
-supervised systemd
+supervised=systemd
 ExecStop=/bin/kill -s QUIT \$MAINPID
 #Type=notify
 User=redis
