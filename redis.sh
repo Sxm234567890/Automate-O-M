@@ -47,7 +47,7 @@ cp redis.conf ${INSTALL_DIR}/etc/
 sed -i -e 's/bind 127.0.0.1/bind 0.0.0.0/' -e  "/# requirepass/a requirepass $PASSWORD"  -e  "/^dir .*/c dir ${INSTALL_DIR}/data/" -e "/logfile .*/c logfile ${INSTALL_DIR}/log/redis-6379.log" -e "/logfile .*/c logfile ${INSTALL_DIR}/log/redis_6379.pid"  ${INSTALL_DIR}/etc/redis.conf
 #-i是告诉sed直接修改文件内容，-e是后面跟要执行的操作
 # c 是替换，a是追加一行 .是单个字符，* 表示跟0个或多个
-if id redis &>/dav/null;then
+if id redis &>/dev/null;then
    color "redis用户已经存在"  1
 else
    useradd -r -s /sbin/nologin redis #-r是创建系统用户 （系统用户，超级用户，普通用户）
