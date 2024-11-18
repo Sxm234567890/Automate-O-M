@@ -8,6 +8,7 @@
 VERSION=redis-4.0.14
 PASSWORD=123456
 INSTALL_DIR=/apps/redis
+[ -e ${INSTALL_DIR} ] || { mkdir -p ${INSTALL_DIR} }
 color(){
    RES_COL=60
    MOVE_TO_COL="echo -en \\033[${RES_COL}G"
