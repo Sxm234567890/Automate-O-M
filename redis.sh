@@ -8,7 +8,7 @@
 VERSION=redis-4.0.14
 PASSWORD=123456
 INSTALL_DIR=/apps/redis
-[ -e ${INSTALL_DIR} ] || { mkdir -p ${INSTALL_DIR} }
+#[ -e ${INSTALL_DIR} ] || { mkdir -p ${INSTALL_DIR} }
 color(){
    RES_COL=60
    MOVE_TO_COL="echo -en \\033[${RES_COL}G"
@@ -29,11 +29,13 @@ color(){
       echo -n $ "WARNING"
    fi
    ${SETCOLOR_NORMAL}
-   echo -n "]"           #echo -n是抑制换行
+   echo -n "]"           #echo -n是抑制换行 echo -e是赋予转义字符意义
    echo
 }
 
-#color "redis安装成功" 0
+#color "redis安装成功" 0   
+#注意{} 两边要空格
+[ -e "${INSTALL_DIR}" ] || { mkdir -p "${INSTALL_DIR}" || { echo "Failed to create directory: ${INSTALL_DIR}"; exit 1; } }
 install(){
 wget http://download.redis.io/releases/${VERSION}.tar.gz||{ color "Redis源码下载失败" 1;exit; }
 yum -y install gcc jemalloc-devel||{ color "安装软件包失败，请检查网络配置" 1;exit; }
@@ -82,7 +84,7 @@ RuntimeDirectoryMode=0755
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable --now redis &>/dev/null  && color "redis启动成功,redis信息如下：" 0 ||{ color "redis启动失败" 1;exit }
+systemctl enable --now redis &>/dev/null  && color "redis启动成功,redis信息如下：" 0 ||{ color "redis启动失败" 1;exit; }
 sleep 2
 redis-cli -a $PASSWORD INFO Server 2>/dev/null
 
