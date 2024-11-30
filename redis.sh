@@ -38,9 +38,9 @@ install(){
 wget http://download.redis.io/releases/${VERSION}.tar.gz||{ color "Redis源码下载失败" 1;exit; }
 yum -y install gcc jemalloc-devel||{ color "安装软件包失败，请检查网络配置" 1;exit; }
    
-tar -xf ${VERSION}.tar.gz||{ color "压缩包解压失败" 1;exit;}
+tar -xf ${VERSION}.tar.gz||{ color "压缩包解压失败" 1;exit; }
 cd ${VERSION}                                     #现在是在解压的软件包路径下
-make -j 4 PREFIX=${INSTALL_DIR} install && color "redis编译安装完成" 0 || { color "redis编译安装失败" 1;exit;} #-j4是同时运4个作业，加快编译速度（取决于系统资源和项目结构）
+make -j 4 PREFIX=${INSTALL_DIR} install && color "redis编译安装完成" 0 || { color "redis编译安装失败" 1;exit; } #-j4是同时运4个作业，加快编译速度（取决于系统资源和项目结构）
  
 ln -s ${INSTALL_DIR}/bin/redis-*  /usr/bin/    
 mkdir -p ${INSTALL_DIR}/{etc,log,data,run}
@@ -82,7 +82,7 @@ RuntimeDirectoryMode=0755
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable --now redis &>/dev/null  && color "redis启动成功,redis信息如下：" 0 ||{color "redis启动失败" 1;exit}
+systemctl enable --now redis &>/dev/null  && color "redis启动成功,redis信息如下：" 0 ||{ color "redis启动失败" 1;exit }
 sleep 2
 redis-cli -a $PASSWORD INFO Server 2>/dev/null
 
