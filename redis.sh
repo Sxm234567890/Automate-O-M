@@ -23,10 +23,10 @@ color(){
       echo -n $ "ok"                            #echo $ 是直接在屏幕输出$
    elif [ $2 = "failure" -o $2="1" ];then
       ${SETCOLOR_FAILURE}
-      echo -n $"FAILED"
+      echo -n $ "FAILED"
    else
       ${SETCOLOR_WARING}
-      echo -n $"WARNING"
+      echo -n $ "WARNING"
    fi
    ${SETCOLOR_NORMAL}
    echo -n "]"           #echo -n是抑制换行
