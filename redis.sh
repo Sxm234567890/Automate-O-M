@@ -21,7 +21,7 @@ color(){
    if [ $2 = "success" -o $2 = "0" ];then
       ${SETCOLOR_SUCCESS}
       echo -n $ "ok"                            #echo $ 是直接在屏幕输出$
-   elif [ $2 = "failure" -o $2="1" ];then
+   elif [ $2 = "failure" -o $2 = "1" ];then
       ${SETCOLOR_FAILURE}
       echo -n $ "FAILED"
    else
