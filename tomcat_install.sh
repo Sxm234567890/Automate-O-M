@@ -3,6 +3,8 @@
 #author:songxiaomin
 #date:2025-01-20
 #*****
+#wget https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.tar.gz
+#wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.34/bin/apache-tomcat-10.1.34.tar.gz
 DIR=`pwd`
 JDK_FILE="jdk-21_linux-x64_bin.tar.gz"
 JDK_VERSION="jdk-21.*"
