@@ -53,14 +53,15 @@ tar -xvf  $DIR/$JDK_FILE -C $JDK_DIR
 cd $JDK_DIR && ln -s jdk-21.*/  jdk       #这个版本还是不要用变量了，会报错有时候
 cat > /etc/profile.d/jdk.sh << EOF
 export JAVA_HOME=$JDK_DIR/jdk
-export JRE_HOME=\$JAVA_HOME/jre
+export JRE_HOME=\$JAVA_HOME/
 export CLASSPATH=\$JAVA_HOME/lib/:\$JRE_HOME/lib/
 export PATH=\$PATH:\$JAVA_HOME/bin
 EOF
 source /etc/profile.d/jdk.sh    #/etc/profile.d 存放针对shell环境的配置脚本。用于设置环境变量、别名、路径影响用户登陆时的shell会话
                            #.shell登陆的时候（终端或者图形）这下面的脚本就会自动执行
                            #/etc/init.d   存放系统服务的启动脚本。管理系统的启动停止
-java -version && color 0 "JDK安装完成" || { color 1 "JDK安装失败" ; exit; }     #source /etc/profile.d/jdk.sh 最后还是要执行一次
+java -version && color 0 "JDK安装完成" || { color 1 "JDK安装失败" ; exit; }     
+#source /etc/profile.d/jdk.sh 最后还是要执行一次才能在所在终端看见java -version,但是不执行也行反正jdk安装了
 }
 
 install_tomcat(){
