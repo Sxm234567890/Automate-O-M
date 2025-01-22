@@ -7,7 +7,7 @@
 #wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.34/bin/apache-tomcat-10.1.34.tar.gz
 DIR=`pwd`
 JDK_FILE="jdk-21_linux-x64_bin.tar.gz"
-JDK_VERSION="jdk-21.*"
+#JDK_VERSION="jdk-21.*"                                 #这个在下面替换一下还是不要用变量了
 TOMCAT_FILE='apache-tomcat-10.1.34.tar.gz'
 #TOMCAT_VERSION="apache-tomcat-10.1.34"
 TOMCAT_VERSION=`basename $TOMCAT_FILE .tar.gz`
@@ -49,17 +49,18 @@ install_jdk(){
       [ -d "$JDK_DIR" ] || mkdir -pv $JDK_DIR
   fi
 tar -xvf  $DIR/$JDK_FILE -C $JDK_DIR
-cd $JDK_DIR && ln -s $JDK_VESION/  jdk   #这里要注意，$JDK_VERSION/不能写成$JDK_VERSION ,会报循环链接的错
+#cd $JDK_DIR && ln -s $JDK_VESION/  jdk   #这里要注意，$JDK_VERSION/不能写成$JDK_VERSION ,会报循环链接的错
+cd $JDK_DIR && ln -s jdk-21.*/  jdk       #这个版本还是不要用变量了，会报错有时候
 cat > /etc/profile.d/jdk.sh << EOF
 export JAVA_HOME=$JDK_DIR/jdk
 export JRE_HOME=\$JAVA_HOME/jre
 export CLASSPATH=\$JAVA_HOME/lib/:\$JRE_HOME/lib/
 export PATH=\$PATH:\$JAVA_HOME/bin
 EOF
-. /etc/profile.d/jdk.sh    #/etc/profile.d 存放针对shell环境的配置脚本。用于设置环境变量、别名、路径影响用户登陆时的shell会话
+source /etc/profile.d/jdk.sh    #/etc/profile.d 存放针对shell环境的配置脚本。用于设置环境变量、别名、路径影响用户登陆时的shell会话
                            #.shell登陆的时候（终端或者图形）这下面的脚本就会自动执行
                            #/etc/init.d   存放系统服务的启动脚本。管理系统的启动停止
-java -version && color 0 "JDK安装完成" || { color 1 "JDK安装失败" ; exit; }
+java -version && color 0 "JDK安装完成" || { color 1 "JDK安装失败" ; exit; }     #source /etc/profile.d/jdk.sh 最后还是要执行一次
 }
 
 install_tomcat(){
