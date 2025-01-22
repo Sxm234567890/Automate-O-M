@@ -3,6 +3,7 @@
 #author:songxiaomin
 #date:2025-01-20
 #*****
+#可以直接看tomcat_install.sh
 DIR=`pwd`
 JDK_FILE="jdk-21_linux-x64_bin.tar.gz"
 JDK_VERSION="jdk-21.*"
