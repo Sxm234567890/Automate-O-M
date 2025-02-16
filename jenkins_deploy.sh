@@ -100,10 +100,9 @@ ADD_NODE(){
 ROOLLBACK_LAST_VERSION(){
      for node in ${Server_IP};do
        echo $node
-       NOW_VERSION=`ssh tomcat@${node} ""/bin/ls -l  -rt /data/tomcat/tomcat_webapps/ | awk -F"->" '{print $2}'  | tail -n1""`
-       NOW_VERSION=`basename ${NOW_VERSION}`
+       NOW_VERSION=$(ssh tomcat@${node} /bin/ls -l /data/tomcat/tomcat_webapps/ | awk -F"->" '{print $2}'  | tail -n1 )
        echo $NOW_VERSION,"NOW_VERSION"
-       NAME=`ssh  magedu@${node}  ""ls  -l  -rt  /data/tomcat/tomcat_webdir/ | grep -B 1 ${NOW_VERSION} | head -n1 | awk '{print $9}'""`
+       NAME=$(ssh  magedu@${node}  /bin/ls  -l  -rt  /data/tomcat/tomcat_webdir/ | grep -B 1 ${NOW_VERSION} | head -n1 | awk '{print $NF}')
        echo $NAME,""NAME
        ssh tomcat@${node} "rm -rf /data/tomcat/tomcat_webapps/myapp && ln -sv  /data/tomcat/tomcat_webdir/${NAME} /data/tomcat/tomcat_webapps/myapp"
      done 
